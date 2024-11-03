@@ -6,13 +6,24 @@
 name: Evnrironment Handling WF
 on:
     workflow_dispatch: 
-
+    push:
+        branches:
+            - dev
+            - stage
+            - main
 jobs:
     deploy:
         runs-on: self-hosted
         strategy:
             matrix:
-                environment: ["dev", "stage", "prod"]
+                include:
+                    - branch: dev
+                      environment: dev
+                    - branch: staging
+                      environment: stage
+                    - branch: main
+                      environment: prod
+
         environment: ${{matrix.environment}}
         steps:
             - run: echo ${{ secrets.SECURITY_TOKEN }}
