@@ -36,14 +36,14 @@ jobs:
           with:
             name: test-results
             path: test-results.xml
-        
+        - run: coverage run -m pytest -v
         - name: Coverage Badge
           uses: tj-actions/coverage-badge-py@v1.8
         - run: |
             git add coverage.svg
             git commit -m "Add code covarage"
             git push
-            
+
         - name: Upload app output
           uses: actions/upload-artifact@v4
           with:
