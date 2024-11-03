@@ -1,0 +1,12 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - 'release/*'
+
+jobs:
+    release-ci:
+        runs-on: self-hosted
+        steps:
+            - run: echo "CI on PR"
