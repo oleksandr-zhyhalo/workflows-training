@@ -1,0 +1,15 @@
+name: Manual WF
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Deployment version'
+        required: true
+        default: '1.0.0'
+
+jobs:
+    display-version:
+        runs-on: self-hosted
+        steps:
+            - name: Print message
+              run: echo "Hello {{ version }}"
