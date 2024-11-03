@@ -1,0 +1,19 @@
+# Deploys to S3
+# dev: bucket-dev, stage: bucket-stage, prod: bucket-prod
+# Cloudfront: cloudfront-dev-id, cloudfront-stage-id, cloudfront-prod-id
+# security-token: token-for-dev, token-for-stage, token-for-prod
+
+name: Evnrironment Handling WF
+on:
+    workflow_dispatch: 
+
+jobs:
+    deploy:
+        runs-on: self-hosted
+        strategy:
+            matrix:
+                environment: ["dev", "stage", "prod"]
+        environment: ${{matrix.environment}}
+        steps:
+            - run: echo ${{ secrets.SECURITY_TOKEN }}
+            - run: echo ${{ vars.S3_BUCKET }}
