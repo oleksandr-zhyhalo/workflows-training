@@ -1,0 +1,14 @@
+name: Filter Branch Workflow
+on:
+    push:
+        branches:
+            - 'release/*'
+
+jobs:
+    checkout-branch:
+        runs-on: self-hosted
+        steps:
+            - uses: actions/checkout@v4
+
+            - run: echo "Release branch ${{ github.ref }}"
+
