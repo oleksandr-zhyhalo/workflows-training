@@ -1,4 +1,4 @@
-name: Filter Branch Workflow
+name: Wildcard Branch Workflow
 on:
     push:
         branches:
