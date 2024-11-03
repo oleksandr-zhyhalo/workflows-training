@@ -11,20 +11,20 @@ on:
 jobs:
     build:
         runs-on: self-hosted
-
+        
         steps:
         - uses: actions/checkout@v4
 
-        - name: Install Python
+        - name: Install Python 
           uses: actions/setup-python@v5
           with:
-            python-version: '3.13'
+            python-version: '3.13' 
 
         - name: Install dependencies
           run: |
             python -m pip install --upgrade pip
             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
+        
         - name: Run tests
           run: pytest --junitxml=test-results.xml
 
@@ -36,15 +36,8 @@ jobs:
           with:
             name: test-results
             path: test-results.xml
-        - run: coverage run -m pytest -v
-        - name: Coverage Badge
-          uses: tj-actions/coverage-badge-py@v1.8
-        - run: |
-            git add coverage.svg
-            git commit -m "Add code covarage"
-            git push
-
-        - name: Upload app output
+        
+        - name: Upload app output 
           uses: actions/upload-artifact@v4
           with:
             name: app-output
