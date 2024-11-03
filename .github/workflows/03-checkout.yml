@@ -1,5 +1,6 @@
 name: Checkout Branch Workflow
-on: push 
+on: push
+
 
 jobs:
     checkout-branch:
