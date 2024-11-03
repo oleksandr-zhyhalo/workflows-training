@@ -18,3 +18,4 @@ jobs:
               run: echo "Version to deploy ${{ inputs.version }}"
             - name: Print environment
               run: echo "Environment to deploy ${{ inputs.environment }}"
+              
