@@ -8,3 +8,5 @@ jobs:
             - uses: actions/checkout@v4
             - name: show branch
               run: git branch
+            - name: list files
+              run: ls -l
