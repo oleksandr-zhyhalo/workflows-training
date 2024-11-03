@@ -5,6 +5,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello World!' });
 });
 
+app.get('/line', (req, res) => {
+    res.json({ message: 'This line is printed for you!' });
+  });
+
 app.get('/api/greet/:name', (req, res) => {
   const name = req.params.name;
   res.json({ message: `Hello, ${name}!` });
