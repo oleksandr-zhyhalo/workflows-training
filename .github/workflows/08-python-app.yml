@@ -11,32 +11,22 @@ on:
 jobs:
     build:
         runs-on: self-hosted
-        
+
         steps:
         - uses: actions/checkout@v4
 
-        - name: Install Python 
+        - name: Install Python
           uses: actions/setup-python@v5
           with:
-            python-version: '3.13' 
+            python-version: '3.13'
 
         - name: Install dependencies
           run: |
             python -m pip install --upgrade pip
             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        
+
         - name: Run tests
-          run: pytest --cov=./ --cov-report=xml --cov-report=term-missing --junitxml=test-results.xml
-        - name: Generate Covarage Badge
-          uses: schneegans/dynamic-badges-action@v1.7.0
-          with:
-            auth: ${{ secrets.GIST_SECRET }}
-            gistID: ${{ secrets.BADGE_GIST_ID }}
-            filename: coverage.json
-            label: coverage
-            message: ${{ steps.coverage.outputs.percentage }}%
-            color: ${{ steps.coverage.outputs.color }}
-            namedLogo: python
+          run: pytest --junitxml=test-results.xml
 
         - name: Run application
           run: python app.py > output.txt
@@ -45,12 +35,16 @@ jobs:
           uses: actions/upload-artifact@v4
           with:
             name: test-results
-            path: |
-              test-results.xml
-              coverage.xml
-
+            path: test-results.xml
         
-        - name: Upload app output 
+        - name: Coverage Badge
+          uses: tj-actions/coverage-badge-py@v1.8
+        - run: |
+            git add coverage.svg
+            git commit -m "Add code covarage"
+            git push
+            
+        - name: Upload app output
           uses: actions/upload-artifact@v4
           with:
             name: app-output
