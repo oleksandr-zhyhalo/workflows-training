@@ -14,6 +14,7 @@ jobs:
         strategy:
           matrix:
             python-version: [3.11, 3.12, 3.13]
+            data: ["data1", "data2", "data3"]
         steps:
         - uses: actions/checkout@v4
 
@@ -36,12 +37,13 @@ jobs:
         - name: Upload test results
           uses: actions/upload-artifact@v4
           with:
-            name: test-results
+            name: test-results-${{matrix.python-version}}
             path: test-results.xml
         
         - name: Upload app output 
           uses: actions/upload-artifact@v4
           with:
-            name: app-output
+            name: app-output--${{matrix.python-version}}
             path: output.txt
             retention-days: 14
+        - run: echo "${{ matrix.data }}"
