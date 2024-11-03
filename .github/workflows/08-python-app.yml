@@ -26,7 +26,17 @@ jobs:
             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         
         - name: Run tests
-          run: pytest --junitxml=test-results.xml
+          run: pytest --cov=./ --cov-report=xml --cov-report=term-missing --junitxml=test-results.xml
+        - name: Generate Covarage Badge
+          uses: schneegans/dynamic-badges-action@v1.7.0
+          with:
+            auth: ${{ secrets.GIST_SECRET }}
+            gistID: ${{ secrets.BADGE_GIST_ID }}
+            filename: coverage.json
+            label: coverage
+            message: ${{ steps.coverage.outputs.percentage }}%
+            color: ${{ steps.coverage.outputs.color }}
+            namedLogo: python
 
         - name: Run application
           run: python app.py > output.txt
@@ -35,7 +45,10 @@ jobs:
           uses: actions/upload-artifact@v4
           with:
             name: test-results
-            path: test-results.xml
+            path: |
+              test-results.xml
+              coverage.xml
+
         
         - name: Upload app output 
           uses: actions/upload-artifact@v4
