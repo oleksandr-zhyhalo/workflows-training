@@ -13,8 +13,7 @@ jobs:
         runs-on: self-hosted
         strategy:
           matrix:
-            python-version: [3.11, 3.12, 3.13]
-            data: ["data1", "data2", "data3"]
+            python-version: [3.11, 3.12, 3.13]            
         steps:
         - uses: actions/checkout@v4
 
@@ -46,4 +45,4 @@ jobs:
             name: app-output--${{matrix.python-version}}
             path: output.txt
             retention-days: 14
-        - run: echo "${{ matrix.data }}"
+            
