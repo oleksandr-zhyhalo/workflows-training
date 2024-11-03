@@ -14,10 +14,14 @@ on:
                 - dev
                 - stage
                 - prod
+            branch:
+                description: 'Branch to deploy'
+                required: true
+                default: dev
+
 jobs:
     deploy:
         runs-on: self-hosted
         environment: ${{ inputs.environment }}
         steps:
-            - run: echo ${{ secrets.SECURITY_TOKEN }}
-            - run: echo ${{ vars.S3_BUCKET }}
+            - run: echo "Deploying ${{ inputs.branch }} to environment ${{inputs.environment }} and bucket ${{ vars.S3_BUCKET }}"
