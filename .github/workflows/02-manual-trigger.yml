@@ -12,4 +12,4 @@ jobs:
         runs-on: self-hosted
         steps:
             - name: Print message
-              run: echo "Hello {{ version }}"
+              run: echo "Hello ${{ inputs.version }}"
